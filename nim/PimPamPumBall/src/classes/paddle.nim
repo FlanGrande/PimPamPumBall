@@ -1,7 +1,7 @@
 #nim/nimmain/src/classes/paddle.nim
 import gdext
-import gdext/classes/gdCharacterBody3D
-import gdext/classes/gdNode3D
+import gdext/classes/gdCharacterBody2D
+import gdext/classes/gdNode2D
 import gdext/classes/gdInput
 import gdext/classes/gdInputEvent
 import gdext/classes/gdSceneTree
@@ -10,11 +10,11 @@ import gdext/classes/gdTween
 type
   Side = enum LEFT, RIGHT
 
-type Paddle* {.gdsync.} = ptr object of CharacterBody3D
+type Paddle* {.gdsync.} = ptr object of CharacterBody2D
   side* {.gdexport.}: Side
   angular_speed* {.gdexport.}: float32 = 0.05
-  base_angle* {.gdexport.}: Vector3 = vector3(0, 45.0, 90.0)
-  max_angle* {.gdexport.}: Vector3 = vector3(0, 90, 90.0)
+  base_angle* {.gdexport.}: float32 = 45.0
+  max_angle* {.gdexport.}: float32 = 90.0
 
 method ready(self: Paddle) {.gdsync.} =
   discard

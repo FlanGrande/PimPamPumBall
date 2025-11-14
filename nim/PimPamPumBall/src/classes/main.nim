@@ -1,10 +1,10 @@
 #nim/nimmain/src/classes/main.nim
 import gdext
 import gdext/classes/gdSceneTree
-import gdext/classes/gdNode3D
+import gdext/classes/gdNode2D
 import gdext/classes/gdInputEvent
 
-type Main* {.gdsync.} = ptr object of Node3D
+type Main* {.gdsync.} = ptr object of Node2D
 
 method ready(self: Main) {.gdsync.} =
   discard

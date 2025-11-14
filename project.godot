@@ -10,8 +10,13 @@ config_version=5
 
 [application]
 
-run/main_scene="uid://c38js70wx7ie0"
+run/main_scene="uid://dg1dm3uqfri3g"
 config/features=PackedStringArray("4.5")
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=1024
 
 [input]
 

@@ -1,159 +1,27 @@
-[gd_scene load_steps=11 format=3 uid="uid://c38js70wx7ie0"]
+[gd_scene load_steps=4 format=3 uid="uid://dg1dm3uqfri3g"]
 
-[ext_resource type="PackedScene" uid="uid://bhj0ae54vrbav" path="res://godot/actors/ball.tscn" id="1_5s166"]
-[ext_resource type="PackedScene" uid="uid://dcnnl3gi5p5sx" path="res://godot/actors/paddle.tscn" id="2_sscoq"]
+[ext_resource type="PackedScene" uid="uid://dh23gqm6gfxm7" path="res://godot/pinball_board/pinball_board.tscn" id="1_5s166"]
+[ext_resource type="PackedScene" uid="uid://bysp0s4l40fkm" path="res://godot/pinball_board/paddle.tscn" id="2_wop1k"]
+[ext_resource type="PackedScene" uid="uid://u6lj3e5rk34b" path="res://godot/pinball_board/ball.tscn" id="3_2jwmw"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_fk20e"]
+[node name="Main" type="Node2D"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_fk20e"]
-size = Vector3(10, 0.5, 20)
+[node name="PinballBoard" parent="." instance=ExtResource("1_5s166")]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sscoq"]
-radius = 0.35
-height = 3.0
+[node name="LeftPaddle" parent="." instance=ExtResource("2_wop1k")]
+angular_speed = 0.1
+base_angle = -135.0
+max_angle = -225.0
+position = Vector2(224, 768.00006)
+rotation = -2.3561945
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_wop1k"]
-radius = 0.35
-height = 4.0
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wop1k"]
-radius = 0.35
-height = 22.0
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_2jwmw"]
-radius = 0.35
-height = 22.0
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2a8c6"]
-radius = 0.35
-height = 12.0
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_cphjp"]
-radius = 0.35
-height = 12.0
-
-[node name="Main" type="Main"]
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.7071068, 0, -0.7071068, 0.70710677, 0, 13, 16)
-current = true
-fov = 50.0
-
-[node name="Camera3D2" type="Camera3D" parent="."]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -11, 0, 3)
-fov = 50.0
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-4.371139e-08, -0.52991927, 0.8480481, 0, 0.8480481, 0.52991927, -1, 2.3163507e-08, -3.706936e-08, 0, 10, 10)
-shadow_enabled = true
-shadow_blur = 4.356
-
-[node name="PinballBoard" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.96592575, -0.258819, 0, 0.258819, 0.96592575, 0, 0, 0)
-
-[node name="Table" type="StaticBody3D" parent="PinballBoard"]
-transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PinballBoard/Table"]
-transform = Transform3D(9.999999, 0, 0, 0, 0.49999997, 0, 0, 0, 20, 0, 0, 0)
-mesh = SubResource("BoxMesh_fk20e")
-skeleton = NodePath("../../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PinballBoard/Table"]
-transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
-shape = SubResource("BoxShape3D_fk20e")
-
-[node name="LeftPaddle" parent="PinballBoard" instance=ExtResource("2_sscoq")]
-base_angle = Vector3(0, 135, 90)
-max_angle = Vector3(0, 225, 90)
-transform = Transform3D(3.0908623e-08, 0.707107, 0.70710677, 1.0000002, -4.4703484e-08, 0, 2.9802322e-08, 0.70710707, -0.7071068, -1.98, 0.8000002, 7.600001)
-
-[node name="RightPaddle" parent="PinballBoard" instance=ExtResource("2_sscoq")]
+[node name="RightPaddle" parent="." instance=ExtResource("2_wop1k")]
 side = 1
-max_angle = Vector3(0, -45, 90)
-transform = Transform3D(-3.0908616e-08, -0.70710695, 0.7071067, 1.0000001, -4.4703484e-08, 0, 2.9802322e-08, 0.70710707, 0.7071068, 1.78, 0.8000002, 7.600001)
-safe_margin = 0.1
+angular_speed = 0.1
+base_angle = -45.0
+max_angle = 45.0
+position = Vector2(512.00006, 768.00006)
+rotation = -0.7853982
 
-[node name="StaticBody3D" type="StaticBody3D" parent="PinballBoard"]
-transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1.0000005, -2.9802322e-08, -2.6645353e-15, 2.9802322e-08, 1.0000005, -4.3711402e-08, 0.3, 0.84580785, 7.0203013)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PinballBoard/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, -4)
-shape = SubResource("CapsuleShape3D_sscoq")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PinballBoard/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, -4)
-mesh = SubResource("CapsuleMesh_wop1k")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="PinballBoard/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, -0.35355335, -3.2221825)
-shape = SubResource("CapsuleShape3D_sscoq")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="PinballBoard/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 0.49497473, -0.70710677, 0, 0.49497473, 0.70710677, 0, -0.35355335, -3.2221825)
-mesh = SubResource("CapsuleMesh_wop1k")
-
-[node name="StaticBody3D3" type="StaticBody3D" parent="PinballBoard"]
-transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1.0000004, -2.9802322e-08, -1.7763568e-15, 2.9802322e-08, 1.0000004, -4.37114e-08, -0.99999994, 0.4000001, 1.0000004)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PinballBoard/StaticBody3D3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -4)
-shape = SubResource("CapsuleShape3D_wop1k")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PinballBoard/StaticBody3D3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -4)
-mesh = SubResource("CapsuleMesh_2jwmw")
-
-[node name="StaticBody3D5" type="StaticBody3D" parent="PinballBoard"]
-transform = Transform3D(7.3513725e-08, 1.0000004, -4.3711395e-08, -2.9802322e-08, 4.3711413e-08, 1.0000005, 1.0000008, -7.351375e-08, 2.9802322e-08, 1.9999962, 4.400001, -9.600008)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PinballBoard/StaticBody3D5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -4)
-shape = SubResource("CapsuleShape3D_2a8c6")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PinballBoard/StaticBody3D5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -4)
-mesh = SubResource("CapsuleMesh_cphjp")
-skeleton = NodePath("../../StaticBody3D5")
-
-[node name="Area3D" type="Area3D" parent="PinballBoard"]
-transform = Transform3D(7.3513725e-08, 1.0000004, -4.3711395e-08, -2.9802322e-08, 4.3711417e-08, 1.0000006, 1.000001, -7.351376e-08, 2.9802322e-08, 1.9999976, 4.4000006, 10.400009)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PinballBoard/Area3D"]
-transform = Transform3D(1, 0, 0, -7.1054274e-15, 1, -1.7763568e-15, 0, 1.7763568e-15, 1, -9.536743e-07, -1.9999999, -4)
-shape = SubResource("CapsuleShape3D_2a8c6")
-
-[node name="StaticBody3D4" type="StaticBody3D" parent="PinballBoard"]
-transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1.0000004, -2.9802322e-08, -1.7763568e-15, 2.9802322e-08, 1.0000004, -4.37114e-08, 9, 0.4000001, 0.99999994)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PinballBoard/StaticBody3D4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -4)
-shape = SubResource("CapsuleShape3D_wop1k")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PinballBoard/StaticBody3D4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -4)
-mesh = SubResource("CapsuleMesh_2jwmw")
-
-[node name="StaticBody3D2" type="StaticBody3D" parent="PinballBoard"]
-transform = Transform3D(2.5186703e-15, 4.371139e-08, -1, 1.0000001, -2.9802322e-08, 8.881784e-16, 2.9802322e-08, 1.0000001, 4.3711392e-08, -0.5, 0.84580785, 7.0203013)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PinballBoard/StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, -4)
-shape = SubResource("CapsuleShape3D_sscoq")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PinballBoard/StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, -4)
-mesh = SubResource("CapsuleMesh_wop1k")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="PinballBoard/StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, -0.35355335, -3.2221825)
-shape = SubResource("CapsuleShape3D_sscoq")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="PinballBoard/StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 0.49497473, -0.70710677, 0, 0.49497473, 0.70710677, 0, -0.35355335, -3.2221825)
-mesh = SubResource("CapsuleMesh_wop1k")
-
-[node name="Ball" parent="PinballBoard" instance=ExtResource("1_5s166")]
-transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 1.7, 1.1553947, 3.584585)
-mass = 2.0
-continuous_cd = true
+[node name="Ball" parent="." instance=ExtResource("3_2jwmw")]
+position = Vector2(448, 256)
