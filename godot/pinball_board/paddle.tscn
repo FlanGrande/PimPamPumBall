@@ -6,7 +6,7 @@
 radius = 16.0
 height = 128.0
 
-[node name="Paddle" type="Paddle"]
+[node name="Paddle" type="Paddle" groups=["paddles"]]
 motion_mode = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

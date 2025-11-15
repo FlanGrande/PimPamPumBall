@@ -5,47 +5,52 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oago8"]
 size = Vector2(32, 1344)
 
-[node name="PinballBoard" type="Node2D"]
+[node name="PinballBoard" type="PinballBoard" node_paths=PackedStringArray("lose_area", "ball_spawn")]
+lose_area = NodePath("LoseArea")
+ball_spawn = NodePath("BallSpawn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 1)
 scale = Vector2(25.4, 25.4)
 texture = ExtResource("1_oago8")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="LeftWall" type="StaticBody2D" parent="."]
 position = Vector2(16, 576)
 
-[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D"]
+[node name="Sprite2D2" type="Sprite2D" parent="LeftWall"]
 scale = Vector2(0.3, -10.5)
 texture = ExtResource("1_oago8")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
 shape = SubResource("RectangleShape2D_oago8")
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+[node name="RightWall" type="StaticBody2D" parent="."]
 position = Vector2(704, 608)
 
-[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D2"]
+[node name="Sprite2D2" type="Sprite2D" parent="RightWall"]
 scale = Vector2(0.3, -10.5)
 texture = ExtResource("1_oago8")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
 shape = SubResource("RectangleShape2D_oago8")
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+[node name="TopWall" type="StaticBody2D" parent="."]
 position = Vector2(352, 16)
 rotation = -1.5707964
 
-[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D3"]
+[node name="Sprite2D2" type="Sprite2D" parent="TopWall"]
 scale = Vector2(0.3, -10.5)
 texture = ExtResource("1_oago8")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall"]
 shape = SubResource("RectangleShape2D_oago8")
 
-[node name="StaticBody2D4" type="Area2D" parent="."]
+[node name="LoseArea" type="Area2D" parent="."]
 position = Vector2(352, 1024)
 rotation = -1.5707964
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LoseArea"]
 shape = SubResource("RectangleShape2D_oago8")
+
+[node name="BallSpawn" type="Node2D" parent="."]
+position = Vector2(448, 224)
