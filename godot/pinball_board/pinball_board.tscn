@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dh23gqm6gfxm7"]
+[gd_scene load_steps=5 format=3 uid="uid://dh23gqm6gfxm7"]
 
 [ext_resource type="Texture2D" uid="uid://c0ho7o4e55nr1" path="res://icon.svg" id="1_oago8"]
+[ext_resource type="PackedScene" uid="uid://tx08ndl7b63s" path="res://godot/pinball_board/bouncer.tscn" id="2_8bvyp"]
+[ext_resource type="PackedScene" uid="uid://bysp0s4l40fkm" path="res://godot/pinball_board/paddle.tscn" id="3_gnko3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oago8"]
 size = Vector2(32, 1344)
@@ -54,3 +56,25 @@ shape = SubResource("RectangleShape2D_oago8")
 
 [node name="BallSpawn" type="Node2D" parent="."]
 position = Vector2(448, 224)
+
+[node name="LeftBouncer" parent="." instance=ExtResource("2_8bvyp")]
+position = Vector2(256, 704)
+physics_material_override = null
+
+[node name="RightBouncer" parent="." instance=ExtResource("2_8bvyp")]
+position = Vector2(480, 704)
+scale = Vector2(-1, 1)
+physics_material_override = null
+
+[node name="LeftPaddle" parent="." instance=ExtResource("3_gnko3")]
+base_angle = -150.0
+max_angle = -210.0
+position = Vector2(240, 832)
+rotation = -2.6179938
+
+[node name="RightPaddle" parent="." instance=ExtResource("3_gnko3")]
+side = 1
+base_angle = -30.0
+max_angle = 30.0
+position = Vector2(496, 832)
+rotation = -0.52078104

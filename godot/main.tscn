@@ -1,27 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://dg1dm3uqfri3g"]
+[gd_scene load_steps=3 format=3 uid="uid://dg1dm3uqfri3g"]
 
 [ext_resource type="PackedScene" uid="uid://dh23gqm6gfxm7" path="res://godot/pinball_board/pinball_board.tscn" id="1_5s166"]
-[ext_resource type="PackedScene" uid="uid://bysp0s4l40fkm" path="res://godot/pinball_board/paddle.tscn" id="2_wop1k"]
 [ext_resource type="PackedScene" uid="uid://u6lj3e5rk34b" path="res://godot/pinball_board/ball.tscn" id="3_2jwmw"]
 
 [node name="Main" type="Node2D"]
 
 [node name="PinballBoard" parent="." instance=ExtResource("1_5s166")]
-
-[node name="LeftPaddle" parent="." instance=ExtResource("2_wop1k")]
-angular_speed = 0.1
-base_angle = -135.0
-max_angle = -225.0
-position = Vector2(224, 768.00006)
-rotation = -2.3561945
-
-[node name="RightPaddle" parent="." instance=ExtResource("2_wop1k")]
-side = 1
-angular_speed = 0.1
-base_angle = -45.0
-max_angle = 45.0
-position = Vector2(512.00006, 768.00006)
-rotation = -0.7853982
 
 [node name="Ball" parent="." instance=ExtResource("3_2jwmw")]
 position = Vector2(448, 256)
