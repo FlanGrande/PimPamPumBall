@@ -4,7 +4,9 @@ import gdext/classes/gdSceneTree
 import gdext/classes/gdNode2D
 import gdext/classes/gdInputEvent
 
+
 type Main* {.gdsync.} = ptr object of Node2D
+
 
 method ready(self: Main) {.gdsync.} =
   discard

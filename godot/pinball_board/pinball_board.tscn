@@ -55,16 +55,15 @@ rotation = -1.5707964
 shape = SubResource("RectangleShape2D_oago8")
 
 [node name="BallSpawn" type="Node2D" parent="."]
-position = Vector2(448, 224)
+position = Vector2(256, 608)
 
 [node name="LeftBouncer" parent="." instance=ExtResource("2_8bvyp")]
 position = Vector2(256, 704)
-physics_material_override = null
 
 [node name="RightBouncer" parent="." instance=ExtResource("2_8bvyp")]
+bounce_force = 120.0
 position = Vector2(480, 704)
 scale = Vector2(-1, 1)
-physics_material_override = null
 
 [node name="LeftPaddle" parent="." instance=ExtResource("3_gnko3")]
 base_angle = -150.0

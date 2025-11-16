@@ -1,15 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://tx08ndl7b63s"]
+[gd_scene load_steps=3 format=3 uid="uid://tx08ndl7b63s"]
 
 [ext_resource type="Texture2D" uid="uid://ddmbwxi3frylo" path="res://godot/assets/bouncer.png" id="1_p8ms5"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oago8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q40uu"]
 radius = 1.7975881
 height = 108.0
 
-[node name="Bouncer" type="StaticBody2D"]
-physics_material_override = SubResource("PhysicsMaterial_oago8")
+[node name="Bouncer" type="Bouncer" node_paths=PackedStringArray("bouncy_part_area_2d")]
+bouncy_part_area_2d = NodePath("BouncyPartArea2D")
+bounce_force = 170.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(4, 4)
@@ -18,7 +17,9 @@ texture = ExtResource("1_p8ms5")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-26, -52, -26, 12, 22, 48, 24, 48, 25, 46, 25, 44, -11, 4, -22, -52, -23, -54, -25, -54)
 
-[node name="BouncyPartCollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="BouncyPartArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BouncyPartArea2D"]
 position = Vector2(0, -3.9999998)
 rotation = -0.4537856
 shape = SubResource("CapsuleShape2D_q40uu")

@@ -16,6 +16,7 @@ type Paddle* {.gdsync.} = ptr object of CharacterBody2D
   base_angle* {.gdexport.}: float32 = 45.0
   max_angle* {.gdexport.}: float32 = 90.0
 
+
 method ready(self: Paddle) {.gdsync.} =
   discard
 
