@@ -3,19 +3,20 @@
 [ext_resource type="Texture2D" uid="uid://c0ho7o4e55nr1" path="res://icon.svg" id="1_qbur3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qbur3"]
-radius = 16.0
-height = 112.0
+radius = 6.0
+height = 74.0
 
 [node name="Paddle" type="Paddle" groups=["paddles"]]
 angular_speed = 0.06
 motion_mode = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-39.999992, -4.7683716e-07)
-scale = Vector2(0.87500006, 0.24999999)
+position = Vector2(-26, 0)
+scale = Vector2(0.5, 0.1)
 texture = ExtResource("1_qbur3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-40, 0)
+position = Vector2(-27, 1.1013412e-13)
 rotation = -1.5707964
+scale = Vector2(0.99999994, 0.9)
 shape = SubResource("CapsuleShape2D_qbur3")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dh23gqm6gfxm7"]
+[gd_scene load_steps=6 format=3 uid="uid://dh23gqm6gfxm7"]
 
 [ext_resource type="Texture2D" uid="uid://c0ho7o4e55nr1" path="res://icon.svg" id="1_oago8"]
 [ext_resource type="PackedScene" uid="uid://tx08ndl7b63s" path="res://godot/pinball_board/bouncer.tscn" id="2_8bvyp"]
+[ext_resource type="Texture2D" uid="uid://b5jgq6vxsgnvn" path="res://godot/assets/PinballBoard.png" id="2_gnko3"]
 [ext_resource type="PackedScene" uid="uid://bysp0s4l40fkm" path="res://godot/pinball_board/paddle.tscn" id="3_gnko3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oago8"]
@@ -15,6 +16,11 @@ ball_spawn = NodePath("BallSpawn")
 modulate = Color(0, 0, 0, 1)
 scale = Vector2(25.4, 25.4)
 texture = ExtResource("1_oago8")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(360, 520)
+scale = Vector2(3.4999998, 3.4999998)
+texture = ExtResource("2_gnko3")
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
 position = Vector2(16, 576)
@@ -59,24 +65,23 @@ position = Vector2(256, 608)
 
 [node name="LeftBouncer" parent="." instance=ExtResource("2_8bvyp")]
 bounce_force = 100.0
-position = Vector2(256, 704)
-rotation = -1.5610608
+position = Vector2(176, 808)
 
 [node name="RightBouncer" parent="." instance=ExtResource("2_8bvyp")]
 side = 1
-bounce_force = 120.0
-position = Vector2(480, 704)
+bounce_force = 100.0
+position = Vector2(432, 808)
 scale = Vector2(-1, 1)
 
 [node name="LeftPaddle" parent="." instance=ExtResource("3_gnko3")]
 base_angle = -150.0
 max_angle = -210.0
-position = Vector2(240, 832)
+position = Vector2(216.00006, 936.0001)
 rotation = -2.6179938
 
 [node name="RightPaddle" parent="." instance=ExtResource("3_gnko3")]
 side = 1
 base_angle = -30.0
 max_angle = 30.0
-position = Vector2(496, 832)
+position = Vector2(391.99997, 935.99994)
 rotation = -0.52078104
