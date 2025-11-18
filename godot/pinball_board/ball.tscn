@@ -12,7 +12,7 @@ gravity_scale = 0.3
 continuous_cd = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.29999998, 0.29999998)
 texture = ExtResource("1_bix0n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
