@@ -6,7 +6,6 @@ import gdext/classes/gdRigidBody2D
 import gdext/classes/gdArea2D
 import gdext/classes/gdCollisionShape2D
 
-
 type
   Side = enum LEFT, RIGHT
 

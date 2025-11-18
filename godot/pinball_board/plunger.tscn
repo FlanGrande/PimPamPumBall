@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpnct5g42qrro"]
+
+[ext_resource type="Texture2D" uid="uid://c0ho7o4e55nr1" path="res://icon.svg" id="1_dujjd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pg5sn"]
+size = Vector2(38, 64)
+
+[node name="Plunger" type="Plunger" node_paths=PackedStringArray("plunger_body")]
+plunger_body = NodePath("CharacterBody2D")
+plunger_windup_time = 0.05
+plunger_push_time = 0.004
+max_position = Vector2(0, 32)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(1.5497208e-06, 0)
+scale = Vector2(0.23, 0.5)
+texture = ExtResource("1_dujjd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_pg5sn")

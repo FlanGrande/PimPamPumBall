@@ -30,8 +30,8 @@ method input(self: Flipper; event: GdRef[InputEvent]) {.gdsync.} =
       discard tween[].tweenProperty(self, "rotation_degrees", variant(self.max_angle), self.angular_speed)
     
     if event[].isActionReleased("left_flipper"):
-        let tween: GdRef[Tween] = self.getTree().createTween()
-        discard tween[].tweenProperty(self, "rotation_degrees", variant(self.base_angle), self.angular_speed)
+      let tween: GdRef[Tween] = self.getTree().createTween()
+      discard tween[].tweenProperty(self, "rotation_degrees", variant(self.base_angle), self.angular_speed)
 
   if self.side == Side.RIGHT:
     if event[].isActionPressed("right_flipper"):
@@ -39,5 +39,5 @@ method input(self: Flipper; event: GdRef[InputEvent]) {.gdsync.} =
       discard tween[].tweenProperty(self, "rotation_degrees", variant(self.max_angle), self.angular_speed)
       
     if event[].isActionReleased("right_flipper"):
-        let tween: GdRef[Tween] = self.getTree().createTween()
-        discard tween[].tweenProperty(self, "rotation_degrees", variant(self.base_angle), self.angular_speed)
+      let tween: GdRef[Tween] = self.getTree().createTween()
+      discard tween[].tweenProperty(self, "rotation_degrees", variant(self.base_angle), self.angular_speed)

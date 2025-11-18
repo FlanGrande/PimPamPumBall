@@ -3,12 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://c0ho7o4e55nr1" path="res://icon.svg" id="1_bix0n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ke6lb"]
-radius = 20.0
+radius = 17.888544
 
 [node name="Ball" type="Ball" groups=["balls"]]
 collision_priority = 10.0
 mass = 0.1
 gravity_scale = 0.3
+can_sleep = false
 continuous_cd = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
