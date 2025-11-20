@@ -37,8 +37,6 @@ proc ball_collided(self: Bouncer, body: Node2D) {.gdsync, name: "_on_body_entere
 
       if self.side == Side.RIGHT:
         impulse_direction = impulse_direction.reflect(vector2(1.0, 0.0))
-
-      print(impulse_direction)
       
       let impulse_vector = impulse_direction * self.bounce_force
 

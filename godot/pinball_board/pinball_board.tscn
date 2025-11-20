@@ -14,6 +14,7 @@ size = Vector2(32, 1344)
 [node name="PinballBoard" type="PinballBoard" node_paths=PackedStringArray("lose_area", "ball_spawn")]
 lose_area = NodePath("LoseArea")
 ball_spawn = NodePath("BallSpawn")
+ball_scene = ExtResource("7_bq3ic")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 1)
@@ -97,7 +98,8 @@ polygon = PackedVector2Array(333, 188, 333, 232, 337, 235, 348, 236, 352, 232, 3
 polygon = PackedVector2Array(426, 544, 444, 565, 461, 549, 478, 509, 493, 469, 500, 434, 500, 317, 487, 284, 469, 257, 444, 228, 417, 206, 413, 205, 409, 206, 409, 327, 395, 427, 392, 450, 404, 459, 412, 457, 424, 429, 430, 410, 430, 365, 435, 342, 445, 326, 465, 322, 482, 337, 483, 358, 483, 405, 471, 457, 453, 502, 435, 525, 427, 537)
 
 [node name="Plunger" parent="." instance=ExtResource("6_u2fcu")]
+plunger_push_time = 0.005
 position = Vector2(608, 946)
 
 [node name="Ball" parent="." instance=ExtResource("7_bq3ic")]
-position = Vector2(608, 846)
+position = Vector2(608, 842)

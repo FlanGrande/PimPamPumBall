@@ -10,6 +10,7 @@ config_version=5
 
 [application]
 
+config/name="PimPamPumBall"
 run/main_scene="uid://dg1dm3uqfri3g"
 config/features=PackedStringArray("4.5")
 
