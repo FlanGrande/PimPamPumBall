@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dg1dm3uqfri3g"]
 
-[ext_resource type="PackedScene" uid="uid://dh23gqm6gfxm7" path="res://godot/pinball_board/pinball_board.tscn" id="1_5s166"]
+[ext_resource type="PackedScene" uid="uid://dh23gqm6gfxm7" path="res://godot/pinball_board/pinballboard.tscn" id="1_5s166"]
 
 [node name="Main" type="Main"]
 

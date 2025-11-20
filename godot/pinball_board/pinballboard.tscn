@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://c0ho7o4e55nr1" path="res://icon.svg" id="1_oago8"]
 [ext_resource type="PackedScene" uid="uid://tx08ndl7b63s" path="res://godot/pinball_board/bouncer.tscn" id="2_8bvyp"]
 [ext_resource type="Texture2D" uid="uid://b5jgq6vxsgnvn" path="res://godot/assets/PinballBoard.png" id="2_gnko3"]
-[ext_resource type="PackedScene" uid="uid://bysp0s4l40fkm" path="res://godot/pinball_board/paddle.tscn" id="3_gnko3"]
-[ext_resource type="PhysicsMaterial" uid="uid://cd6jbsx8wpfep" path="res://godot/pinball_board/pinball_board.phymat" id="5_07fcm"]
+[ext_resource type="PackedScene" uid="uid://bysp0s4l40fkm" path="res://godot/pinball_board/flipper.tscn" id="3_gnko3"]
+[ext_resource type="PhysicsMaterial" uid="uid://cd6jbsx8wpfep" path="res://godot/pinball_board/pinballboard.phymat" id="5_07fcm"]
 [ext_resource type="PackedScene" uid="uid://dpnct5g42qrro" path="res://godot/pinball_board/plunger.tscn" id="6_u2fcu"]
 [ext_resource type="PackedScene" uid="uid://u6lj3e5rk34b" path="res://godot/pinball_board/ball.tscn" id="7_bq3ic"]
 

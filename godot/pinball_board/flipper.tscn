@@ -3,11 +3,12 @@
 [ext_resource type="Texture2D" uid="uid://c0ho7o4e55nr1" path="res://icon.svg" id="1_qbur3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qbur3"]
-radius = 7.2007203
+radius = 9.0009
 height = 86.0
 
 [node name="Flipper" type="Flipper" groups=["paddles"]]
 motion_mode = 1
+safe_margin = 0.001
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-32, 0)
