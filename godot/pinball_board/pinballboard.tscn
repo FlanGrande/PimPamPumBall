@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dh23gqm6gfxm7"]
+[gd_scene load_steps=10 format=3 uid="uid://dh23gqm6gfxm7"]
 
 [ext_resource type="Texture2D" uid="uid://c0ho7o4e55nr1" path="res://icon.svg" id="1_oago8"]
 [ext_resource type="PackedScene" uid="uid://tx08ndl7b63s" path="res://godot/pinball_board/bouncer.tscn" id="2_8bvyp"]
@@ -7,6 +7,7 @@
 [ext_resource type="PhysicsMaterial" uid="uid://cd6jbsx8wpfep" path="res://godot/pinball_board/pinballboard.phymat" id="5_07fcm"]
 [ext_resource type="PackedScene" uid="uid://dpnct5g42qrro" path="res://godot/pinball_board/plunger.tscn" id="6_u2fcu"]
 [ext_resource type="PackedScene" uid="uid://u6lj3e5rk34b" path="res://godot/pinball_board/ball.tscn" id="7_bq3ic"]
+[ext_resource type="PackedScene" uid="uid://d810xuvfmh08" path="res://godot/pinball_board/bumper.tscn" id="8_k6jhl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oago8"]
 size = Vector2(32, 1344)
@@ -103,3 +104,12 @@ position = Vector2(608, 946)
 
 [node name="Ball" parent="." instance=ExtResource("7_bq3ic")]
 position = Vector2(608, 842)
+
+[node name="Bumper" parent="." instance=ExtResource("8_k6jhl")]
+position = Vector2(256, 320)
+
+[node name="Bumper2" parent="." instance=ExtResource("8_k6jhl")]
+position = Vector2(352, 288)
+
+[node name="Bumper3" parent="." instance=ExtResource("8_k6jhl")]
+position = Vector2(312, 368)

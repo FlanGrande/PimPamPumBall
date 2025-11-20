@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://d810xuvfmh08"]
+
+[ext_resource type="Texture2D" uid="uid://7urtggejjk22" path="res://godot/assets/Bumper.png" id="1_5hwj5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ry1fm"]
+radius = 16.0
+
+[node name="Bumper" type="Bumper" node_paths=PackedStringArray("bouncy_area")]
+bouncy_area = NodePath("Area2D")
+bounce_force = 40.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_5hwj5")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ry1fm")
