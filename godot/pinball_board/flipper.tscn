@@ -8,7 +8,7 @@ height = 86.0
 
 [node name="Flipper" type="Flipper" groups=["paddles"]]
 motion_mode = 1
-safe_margin = 0.001
+platform_on_leave = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-32, 0)
