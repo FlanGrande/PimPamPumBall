@@ -6,6 +6,7 @@ import gdext/classes/gdRigidBody2D
 import gdext/classes/gdArea2D
 import gdext/classes/gdCollisionShape2D
 
+
 type Bumper* {.gdsync.} = ptr object of Node2D
   bouncy_area* {.gdexport.}: Area2D
   bounce_force* {.gdexport.}: float32
@@ -23,7 +24,6 @@ proc ball_collided(self: Bumper, body: Node2D) {.gdsync, name: "_on_body_entered
     let ball: RigidBody2D = body as RigidBody2D
 
     if ball != nil:
-      let collisionShape2d = self.bouncy_area.getChildren()[0] as CollisionShape2D
       var impulse_direction: Vector2 = self.position.directionTo(ball.position)
       let impulse_vector = impulse_direction * self.bounce_force
 
