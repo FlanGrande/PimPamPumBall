@@ -21,9 +21,9 @@ method ready(self: Bouncer) {.gdsync.} =
   if self.side == Side.RIGHT:
     self.setScale(vector2(-1.0, 1.0))
 
-
 method process(self: Bouncer; delta: float64) {.gdsync.} =
   discard
+
 
 # Not terribly flexible for RIGHT side, but if I used it in LEFT mode with a symmetrical sprite, I think it can be on any position
 # Which begs the question: do I really need the Side feature? XD

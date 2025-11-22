@@ -6,7 +6,6 @@ import gdext/classes/gdRigidBody2D
 import gdext/classes/gdArea2D
 import gdext/classes/gdCollisionShape2D
 
-
 type Bumper* {.gdsync.} = ptr object of Node2D
   bouncy_area* {.gdexport.}: Area2D
   bounce_force* {.gdexport.}: float32
@@ -15,9 +14,9 @@ type Bumper* {.gdsync.} = ptr object of Node2D
 method ready(self: Bumper) {.gdsync.} =
   discard self.bouncy_area.connect("body_entered", self.callable("_on_body_entered"))
 
-
 method process(self: Bumper; delta: float64) {.gdsync.} =
   discard
+
 
 proc ball_collided(self: Bumper, body: Node2D) {.gdsync, name: "_on_body_entered".} =
   if body.isInGroup("balls"):
@@ -29,3 +28,4 @@ proc ball_collided(self: Bumper, body: Node2D) {.gdsync, name: "_on_body_entered
 
       ball.linear_velocity = vector2(0.0, 0.0)
       ball.applyImpulse(impulse_vector)
+

@@ -21,7 +21,6 @@ method ready(self: Plunger) {.gdsync.} =
 method process(self: Plunger; delta: float64) {.gdsync.} =
   discard
 
-
 method input(self: Plunger; event: GdRef[InputEvent]) {.gdsync.} =
   if event[].isActionPressed("right_flipper"):
     let tween: GdRef[Tween] = self.getTree().createTween()

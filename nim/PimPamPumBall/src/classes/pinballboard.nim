@@ -15,6 +15,7 @@ type PinballBoard* {.gdsync.} = ptr object of Node2D
 
 proc ball_lost(self: PinballBoard): Error {.gdsync, signal.}
 
+
 method ready(self: PinballBoard) {.gdsync.} =
   discard self.lose_area.connect("body_entered", self.callable("_on_body_entered"))
 
@@ -23,6 +24,7 @@ method process(self: PinballBoard; delta: float64) {.gdsync.} =
 
 method input(self: PinballBoard; event: GdRef[InputEvent]) {.gdsync.} =
   discard
+
 
 proc on_body_entered(self: PinballBoard, body: Node2D) {.gdsync, name: "_on_body_entered".} =
   if body.isInGroup("balls"):
