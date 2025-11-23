@@ -6,5 +6,6 @@ import classes/Flipper
 import classes/Bouncer
 import classes/Plunger
 import classes/Bumper
+import classes/Ramp
 
 GDExtensionEntryPoint

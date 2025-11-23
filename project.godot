@@ -22,6 +22,8 @@ window/size/viewport_height=1024
 [global_group]
 
 balls=""
+walls=""
+triggers=""
 
 [input]
 
