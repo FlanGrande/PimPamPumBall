@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c0ho7o4e55nr1" path="res://icon.svg" id="1_pq5m8"]
 
 [sub_resource type="Gradient" id="Gradient_pq5m8"]
-offsets = PackedFloat32Array(0, 0.1, 0.9, 1)
+offsets = PackedFloat32Array(0.12893082, 0.25786164, 0.7169811, 0.918239)
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pq5m8"]
