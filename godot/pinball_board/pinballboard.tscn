@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dh23gqm6gfxm7"]
+[gd_scene load_steps=12 format=3 uid="uid://dh23gqm6gfxm7"]
 
 [ext_resource type="Texture2D" uid="uid://c0ho7o4e55nr1" path="res://icon.svg" id="1_oago8"]
 [ext_resource type="PackedScene" uid="uid://tx08ndl7b63s" path="res://godot/pinball_board/bouncer.tscn" id="2_8bvyp"]
@@ -12,6 +12,11 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oago8"]
 size = Vector2(32, 1344)
+
+[sub_resource type="Curve" id="Curve_ley5f"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0.0029069781, 0.82089555), 0.0, 1.5254251, 0, 0, Vector2(0.5029069, 0.53731346), 0.0, 0.0, 0, 0, Vector2(1, 0.8358209), -2.832734, 0.0, 0, 0]
+point_count = 3
 
 [node name="PinballBoard" type="PinballBoard" node_paths=PackedStringArray("lose_area", "ball_spawn")]
 lose_area = NodePath("LoseArea")
@@ -103,8 +108,9 @@ polygon = PackedVector2Array(426, 544, 444, 565, 461, 549, 478, 509, 493, 469, 5
 position = Vector2(504, 432)
 
 [node name="Line2D" parent="Ramp" index="0"]
-points = PackedVector2Array(-216, 24, -224, -16, -232, -72, -232, -128, -224, -168, -208, -192, -184, -224, -152, -248, -120, -256, -80, -264, -59, -266, -40, -264, -16, -256, 8, -248, 40, -232, 64, -216, 80, -200, 96, -176, 112, -136, 112, -88, 112, -32, 104, 40, 104, 72)
-width = 59.0
+points = PackedVector2Array(-216, 24, -232, -80, -232, -104, -232, -128, -224, -168, -208, -192, -184, -224, -152, -248, -120, -256, -80, -264, -59, -266, -40, -264, -16, -256, 8, -248, 40, -232, 64, -216, 80, -200, 96, -176, 112, -136, 112, -88, 112, -32, 112, -16, 104, 72)
+width = 60.0
+width_curve = SubResource("Curve_ley5f")
 
 [node name="Plunger" parent="." instance=ExtResource("6_u2fcu")]
 plunger_push_time = 0.005

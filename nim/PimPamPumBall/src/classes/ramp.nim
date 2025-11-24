@@ -6,11 +6,15 @@ import gdext/classes/gdRigidBody2D
 import gdext/classes/gdLine2D
 import gdext/classes/gdCollisionShape2D
 import gdext/classes/gdCollisionPolygon2D
+import gdext/classes/gdSegmentShape2D
 import gdext/classes/gdCircleShape2D
 import gdext/classes/gdGeometry2D
 import gdext/classes/gdPolygon2D
 import gdext/classes/gdArea2D
+import gdext/classes/gdCurve
 import classes/Ball
+
+const SEG_GROUP* = "ramp_wall_segments"  # helps cleanup/rebuild
 
 type Ramp* {.gdsync.} = ptr object of Node2D
   rampStaticBody2D* {.gdexport.}: StaticBody2D
@@ -29,7 +33,6 @@ proc createCollisionPolygons(self: Ramp)
 method ready(self: Ramp) {.gdsync.} =
   self.line_width = self.line2D.width
   self.line_points = self.line2D.points
-  print("hiiii")
   self.createCollisionPolygons()
 
   discard self.entryTrigger1Area2D.connect("body_entered", self.callable("_on_body_entered").bind(self.entryTrigger1Area2D))
@@ -46,18 +49,133 @@ method process(self: Ramp, delta: float64) {.gdsync.} =
   discard
 
 
+proc leftNormal(dir: Vector2): Vector2 =
+  # rotate 90° CCW
+  result = vector2(-dir.y, dir.x)
+
+proc offsetPolylineVariable(points: PackedVector2Array,
+                            baseWidth: float32,
+                            curve: Curve = nil
+                           ): tuple[left: PackedVector2Array, right: PackedVector2Array] =
+  var points_tmp = points
+  let n = points.size
+  if n < 2:
+    return (points_tmp.duplicate(), points_tmp.duplicate())
+
+  # cumulative arc-lengths to sample widthCurve by distance
+  var cum = newSeq[float32](n)
+  var total: float32 = 0
+  for i in 1..<n:
+    total += (points_tmp[i] - points_tmp[i-1]).length()
+    cum[i] = total
+  let invTotal = (if total > 0: 1.0f32 / total else: 0.0f32)
+
+  var leftOut  = PackedVector2Array()
+  var rightOut = PackedVector2Array()
+  discard leftOut.resize(n)
+  discard rightOut.resize(n)
+
+  for i in 0..<n:
+    let t = cum[i] * invTotal
+    var wScale: float32 = 1.0
+    if curve != nil:
+      wScale = curve.sample(t) # 0..1 typically, but not guaranteed; clamp if you want
+    let d = (baseWidth * wScale) * 0.5
+
+    # neighbors for tangent
+    let a = points_tmp[max(i-1, 0)]
+    let p = points_tmp[i]
+    let b = points_tmp[min(i+1, n-1)]
+
+    var dirPrev = (p - a)
+    var dirNext = (b - p)
+    if dirPrev.length > 0: dirPrev = dirPrev.normalized()
+    if dirNext.length > 0: dirNext = dirNext.normalized()
+
+    if i == 0:
+      # start: use first segment normal
+      let n0 = leftNormal(dirNext)
+      leftOut[i]  = p + n0 * d
+      rightOut[i] = p - n0 * d
+      continue
+    elif i == n-1:
+      # end: use last segment normal
+      let n1 = leftNormal(dirPrev)
+      leftOut[i]  = p + n1 * d
+      rightOut[i] = p - n1 * d
+      continue
+
+    # interior: miter using normal bisector
+    let nPrev = leftNormal(dirPrev)
+    let nNext = leftNormal(dirNext)
+    var bis = nPrev + nNext
+    if bis.length < 1e-6:
+      # straight 180° or extremely sharp turn; fall back to one side
+      bis = nPrev
+
+
+    # miter scale so edge stays ~d from centerline
+    # cos_theta ~ projection of bisector onto one of the normals
+    let cosTheta = clamp(bis.dot(nPrev), -1.0, 1.0)
+    let miter = d / max(1e-6f32, cosTheta)
+
+    leftOut[i]  = p + bis * miter
+    rightOut[i] = p - bis * miter
+
+  (left: leftOut, right: rightOut)
+
+proc addSegmentChain(parent: Node,
+                     pts: PackedVector2Array,
+                     skipStart = 1,         # how many leading segments to skip (entrance)
+                     skipEnd   = 1          # how many trailing segments to skip (exit)
+                    ) =
+  ## Creates one CollisionShape2D per edge using SegmentShape2D.
+  let n = pts.size
+  if n < 2: return
+
+  # Compute range of segments to include
+  var firstSeg = skipStart
+  var lastSeg  = max(firstSeg, (n - 1) - skipEnd)  # segment index i draws (pts[i], pts[i+1])
+
+  for i in firstSeg ..< lastSeg:
+    let a = pts[i]
+    let b = pts[i + 1]
+    if (b - a).length() <= 1e-5: continue
+
+    # Segment shape
+    let seg: GdRef[SegmentShape2D] = instantiate(SegmentShape2D)
+    seg[].a = a
+    seg[].b = b
+
+    # CollisionShape2D node that holds it
+    let cs: CollisionShape2D = instantiate(CollisionShape2D)
+    cs.shape = seg[] as GdRef[Shape2D]
+    cs.addToGroup(SEG_GROUP)
+
+    parent.addChild(cs)
+
+proc clearOldWallSegments(self: Ramp) =
+  ## Optional: remove previously built segment shapes, so rebuilds don't duplicate.
+  for child in self.rampStaticBody2D.getChildren():
+    if child.isInGroup(SEG_GROUP):
+      self.rampStaticBody2D.removeChild(child)
+      child.queueFree()
+
 proc createCollisionPolygons(self: Ramp) =
-  let wall_polygons: TypedArray[PackedVector2Array] = Geometry2D.offsetPolyline(self.line_points, self.line_width/2, Geometry2D_PolyJoinType.joinRound, Geometry2D_PolyEndType.endRound)
-  # self.ramp_collision_polygon = instantiate(CollisionPolygon2D)
-  
-  # offsetPolyline returns an Array of PackedVector2Array (e.g. a list of polygons)
-  for wall_polygon in wall_polygons:
-    let new_collision_polygon_2d: CollisionPolygon2D = instantiate(CollisionPolygon2D)
-    new_collision_polygon_2d.buildMode = CollisionPolygon2D_BuildMode.buildSegments
-    new_collision_polygon_2d.setPolygon(wall_polygon)
-    self.rampStaticBody2D.addChild(new_collision_polygon_2d)
-    # discard full_polygon.appendArray(wall_polygon)
-    # discard self.ramp_collision_polygon.setPolygon().appendArray(wall_polygon)
+  # Replace your old polygon-building body with segment chains:
+  if self.line_points.size < 2: return
+
+  self.clearOldWallSegments()
+
+  let baseWidth = self.line2D.width / 2
+  let curve: GdRef[Curve] = self.line2D.widthCurve
+
+  let (leftPts, rightPts) = offsetPolylineVariable(self.line_points, baseWidth, curve[])
+
+  # Build side walls as segment chains, leaving the entrance/exit open.
+  # Tweak skipStart/skipEnd to control gap size. 1 = skip only the terminal segment.
+  addSegmentChain(self.rampStaticBody2D, leftPts,  skipStart = 1, skipEnd = 1)
+  addSegmentChain(self.rampStaticBody2D, rightPts, skipStart = 1, skipEnd = 1)
 
   if self.line_points.size() >= 4:
     self.entryTrigger1Area2D.position = self.line_points[1]
@@ -75,10 +193,10 @@ proc createCollisionPolygons(self: Ramp) =
     let collision_circle_3: CircleShape2D = collision_shape_3.shape[] as CircleShape2D
     let collision_circle_4: CircleShape2D = collision_shape_4.shape[] as CircleShape2D
     
-    collision_circle_1.radius = self.line_width/2.1
-    collision_circle_2.radius = self.line_width/2.1
-    collision_circle_3.radius = self.line_width/2.1
-    collision_circle_4.radius = self.line_width/2.1
+    collision_circle_1.radius = self.line_width/3
+    collision_circle_2.radius = self.line_width
+    collision_circle_3.radius = self.line_width/3
+    collision_circle_4.radius = self.line_width
 
 
 proc on_body_entered(self: Ramp, body: Node2D, signal_trigger: Area2D) {.gdsync, name: "_on_body_entered".} =
