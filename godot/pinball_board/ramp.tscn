@@ -1,6 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://10i31hal0od2"]
+[gd_scene load_steps=4 format=3 uid="uid://10i31hal0od2"]
 
 [ext_resource type="Texture2D" uid="uid://c0ho7o4e55nr1" path="res://icon.svg" id="1_pq5m8"]
+
+[sub_resource type="Gradient" id="Gradient_pq5m8"]
+offsets = PackedFloat32Array(0, 0.1, 0.9, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pq5m8"]
 radius = 40.0
@@ -12,14 +16,12 @@ entryTrigger1Area2D = NodePath("EntryTrigger1Area2D")
 exitTrigger1Area2D = NodePath("ExitTrigger1Area2D")
 entryTrigger2Area2D = NodePath("EntryTrigger2Area2D")
 exitTrigger2Area2D = NodePath("ExitTrigger2Area2D")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["walls"]]
-collision_layer = 2
-collision_mask = 2
+z_index = 1
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(-279, -21, -238, -49, -61, -147, 197, -123, 308, 24, 342, 70)
 width = 40.0
+gradient = SubResource("Gradient_pq5m8")
 texture = ExtResource("1_pq5m8")
 texture_mode = 2
 joint_mode = 2
@@ -27,34 +29,38 @@ sharp_limit = 0.0
 round_precision = 32
 antialiased = true
 
-[node name="EntryTrigger1Area2D" type="Area2D" parent="." groups=["triggers"]]
-position = Vector2(-62, -82)
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["walls"]]
 collision_layer = 2
 collision_mask = 2
+
+[node name="EntryTrigger1Area2D" type="Area2D" parent="." groups=["ramp_entry_triggers", "triggers"]]
+position = Vector2(-62, -82)
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EntryTrigger1Area2D"]
 shape = SubResource("CircleShape2D_pq5m8")
 
-[node name="ExitTrigger1Area2D" type="Area2D" parent="." groups=["triggers"]]
+[node name="ExitTrigger1Area2D" type="Area2D" parent="." groups=["ramp_exit_triggers", "triggers"]]
 position = Vector2(-82, -27)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitTrigger1Area2D"]
 shape = SubResource("CircleShape2D_pq5m8")
 
-[node name="EntryTrigger2Area2D" type="Area2D" parent="." groups=["triggers"]]
+[node name="EntryTrigger2Area2D" type="Area2D" parent="." groups=["ramp_entry_triggers", "triggers"]]
 position = Vector2(170, -19)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EntryTrigger2Area2D"]
 shape = SubResource("CircleShape2D_pq5m8")
 
-[node name="ExitTrigger2Area2D" type="Area2D" parent="." groups=["triggers"]]
+[node name="ExitTrigger2Area2D" type="Area2D" parent="." groups=["ramp_exit_triggers", "triggers"]]
 position = Vector2(166, 45)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitTrigger2Area2D"]
 shape = SubResource("CircleShape2D_pq5m8")

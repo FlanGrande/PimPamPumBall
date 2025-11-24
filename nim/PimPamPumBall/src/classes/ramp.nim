@@ -2,6 +2,7 @@
 import gdext
 import gdext/classes/gdNode2D
 import gdext/classes/gdStaticBody2D
+import gdext/classes/gdRigidBody2D
 import gdext/classes/gdLine2D
 import gdext/classes/gdCollisionShape2D
 import gdext/classes/gdCollisionPolygon2D
@@ -9,6 +10,7 @@ import gdext/classes/gdCircleShape2D
 import gdext/classes/gdGeometry2D
 import gdext/classes/gdPolygon2D
 import gdext/classes/gdArea2D
+import classes/Ball
 
 type Ramp* {.gdsync.} = ptr object of Node2D
   rampStaticBody2D* {.gdexport.}: StaticBody2D
@@ -27,8 +29,18 @@ proc createCollisionPolygons(self: Ramp)
 method ready(self: Ramp) {.gdsync.} =
   self.line_width = self.line2D.width
   self.line_points = self.line2D.points
-
+  print("hiiii")
   self.createCollisionPolygons()
+
+  discard self.entryTrigger1Area2D.connect("body_entered", self.callable("_on_body_entered").bind(self.entryTrigger1Area2D))
+  discard self.exitTrigger1Area2D.connect("body_entered", self.callable("_on_body_entered").bind(self.exitTrigger1Area2D))
+  discard self.entryTrigger2Area2D.connect("body_entered", self.callable("_on_body_entered").bind(self.entryTrigger2Area2D))
+  discard self.exitTrigger2Area2D.connect("body_entered", self.callable("_on_body_entered").bind(self.exitTrigger2Area2D))
+  
+  discard self.entryTrigger1Area2D.connect("body_exited", self.callable("_on_body_exited").bind(self.entryTrigger1Area2D))
+  discard self.exitTrigger1Area2D.connect("body_exited", self.callable("_on_body_exited").bind(self.exitTrigger1Area2D))
+  discard self.entryTrigger2Area2D.connect("body_exited", self.callable("_on_body_exited").bind(self.entryTrigger2Area2D))
+  discard self.exitTrigger2Area2D.connect("body_exited", self.callable("_on_body_exited").bind(self.exitTrigger2Area2D))
 
 method process(self: Ramp, delta: float64) {.gdsync.} =
   discard
@@ -63,8 +75,34 @@ proc createCollisionPolygons(self: Ramp) =
     let collision_circle_3: CircleShape2D = collision_shape_3.shape[] as CircleShape2D
     let collision_circle_4: CircleShape2D = collision_shape_4.shape[] as CircleShape2D
     
-    collision_circle_1.radius = self.line_width
-    collision_circle_2.radius = self.line_width
-    collision_circle_3.radius = self.line_width
-    collision_circle_4.radius = self.line_width
+    collision_circle_1.radius = self.line_width/2.1
+    collision_circle_2.radius = self.line_width/2.1
+    collision_circle_3.radius = self.line_width/2.1
+    collision_circle_4.radius = self.line_width/2.1
 
+
+proc on_body_entered(self: Ramp, body: Node2D, signal_trigger: Area2D) {.gdsync, name: "_on_body_entered".} =
+  if body.isInGroup("balls"):
+    let ball: Ball = body as Ball
+
+    if ball != nil:
+      # if signal_trigger.isInGroup("ramp_entry_triggers"):
+      #   print("hi2")
+      #   ball.changeZPlane(2)
+      
+      if signal_trigger.isInGroup("ramp_exit_triggers"):
+        print("hi3")
+        ball.changeZPlane(1)
+
+proc on_body_exited(self: Ramp, body: Node2D, signal_trigger: Area2D) {.gdsync, name: "_on_body_exited".} =
+  if body.isInGroup("balls"):
+    let ball: Ball = body as Ball
+
+    if ball != nil:
+      if signal_trigger.isInGroup("ramp_entry_triggers"):
+        print("hi2")
+        ball.changeZPlane(2)
+      
+      if signal_trigger.isInGroup("ramp_exit_triggers"):
+        print("hi3")
+        ball.changeZPlane(1)

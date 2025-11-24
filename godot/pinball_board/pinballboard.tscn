@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dh23gqm6gfxm7"]
+[gd_scene load_steps=11 format=3 uid="uid://dh23gqm6gfxm7"]
 
 [ext_resource type="Texture2D" uid="uid://c0ho7o4e55nr1" path="res://icon.svg" id="1_oago8"]
 [ext_resource type="PackedScene" uid="uid://tx08ndl7b63s" path="res://godot/pinball_board/bouncer.tscn" id="2_8bvyp"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dpnct5g42qrro" path="res://godot/pinball_board/plunger.tscn" id="6_u2fcu"]
 [ext_resource type="PackedScene" uid="uid://u6lj3e5rk34b" path="res://godot/pinball_board/ball.tscn" id="7_bq3ic"]
 [ext_resource type="PackedScene" uid="uid://d810xuvfmh08" path="res://godot/pinball_board/bumper.tscn" id="8_k6jhl"]
+[ext_resource type="PackedScene" uid="uid://10i31hal0od2" path="res://godot/pinball_board/ramp.tscn" id="9_ley5f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oago8"]
 size = Vector2(32, 1344)
@@ -98,6 +99,13 @@ polygon = PackedVector2Array(333, 188, 333, 232, 337, 235, 348, 236, 352, 232, 3
 [node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="InnerWalls"]
 polygon = PackedVector2Array(426, 544, 444, 565, 461, 549, 478, 509, 493, 469, 500, 434, 500, 317, 487, 284, 469, 257, 444, 228, 417, 206, 413, 205, 409, 206, 409, 327, 395, 427, 392, 450, 404, 459, 412, 457, 424, 429, 430, 410, 430, 365, 435, 342, 445, 326, 465, 322, 482, 337, 483, 358, 483, 405, 471, 457, 453, 502, 435, 525, 427, 537)
 
+[node name="Ramp" parent="." instance=ExtResource("9_ley5f")]
+position = Vector2(504, 432)
+
+[node name="Line2D" parent="Ramp" index="0"]
+points = PackedVector2Array(-216, 24, -224, -16, -232, -72, -232, -128, -224, -168, -208, -192, -184, -224, -152, -248, -120, -256, -80, -264, -59, -266, -40, -264, -16, -256, 8, -248, 40, -232, 64, -216, 80, -200, 96, -176, 112, -136, 112, -88, 112, -32, 104, 40, 104, 72)
+width = 59.0
+
 [node name="Plunger" parent="." instance=ExtResource("6_u2fcu")]
 plunger_push_time = 0.005
 position = Vector2(608, 946)
@@ -106,10 +114,12 @@ position = Vector2(608, 946)
 position = Vector2(608, 842)
 
 [node name="Bumper" parent="." instance=ExtResource("8_k6jhl")]
-position = Vector2(256, 320)
+position = Vector2(-280, 360)
 
 [node name="Bumper2" parent="." instance=ExtResource("8_k6jhl")]
-position = Vector2(352, 288)
+position = Vector2(-184, 328)
 
 [node name="Bumper3" parent="." instance=ExtResource("8_k6jhl")]
-position = Vector2(312, 368)
+position = Vector2(-224, 408)
+
+[editable path="Ramp"]

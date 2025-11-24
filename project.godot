@@ -24,6 +24,8 @@ window/size/viewport_height=1024
 balls=""
 walls=""
 triggers=""
+ramp_entry_triggers=""
+ramp_exit_triggers=""
 
 [input]
 

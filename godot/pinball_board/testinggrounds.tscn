@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://xklwbgjpbykf"]
+
+[ext_resource type="PackedScene" uid="uid://10i31hal0od2" path="res://godot/pinball_board/ramp.tscn" id="1_lrcnj"]
+[ext_resource type="PackedScene" uid="uid://u6lj3e5rk34b" path="res://godot/pinball_board/ball.tscn" id="2_7qea8"]
+
+[sub_resource type="Gradient" id="Gradient_lrcnj"]
+offsets = PackedFloat32Array(0, 0.2647059, 0.74509805, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="TestingGrounds" type="Node2D"]
+
+[node name="Ramp" parent="." instance=ExtResource("1_lrcnj")]
+position = Vector2(368, 312)
+
+[node name="Line2D" parent="Ramp" index="0"]
+points = PackedVector2Array(24, -208, 56, -184, -8, -80, 128, -48, 296, 56, 320, 64)
+width = 50.0
+gradient = SubResource("Gradient_lrcnj")
+
+[node name="EntryTrigger1Area2D" parent="Ramp" index="2"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="ExitTrigger1Area2D" parent="Ramp" index="3"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="EntryTrigger2Area2D" parent="Ramp" index="4"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="ExitTrigger2Area2D" parent="Ramp" index="5"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="Ball" parent="." instance=ExtResource("2_7qea8")]
+position = Vector2(400, 56)
+
+[editable path="Ramp"]
