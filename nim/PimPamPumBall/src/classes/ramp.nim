@@ -12,8 +12,6 @@ import gdext/classes/gdArea2D
 import gdext/classes/gdCurve
 import classes/Ball
 
-const SEG_GROUP* = "ramp_wall_segments"  # helps cleanup/rebuild
-
 type Ramp* {.gdsync.} = ptr object of Node2D
   rampStaticBody2D* {.gdexport.}: StaticBody2D
   line2D* {.gdexport.}: Line2D
@@ -137,20 +135,11 @@ proc addSegmentChain(parent: Node, pts: PackedVector2Array, skipStart: int8 = 1,
 
     let cs: CollisionShape2D = instantiate(CollisionShape2D)
     cs.shape = seg[] as GdRef[Shape2D]
-    # cs.addToGroup(SEG_GROUP)
 
     parent.addChild(cs)
 
-# proc clearOldWallSegments(self: Ramp) =
-#   for child in self.rampStaticBody2D.getChildren():
-#     if child.isInGroup(SEG_GROUP):
-#       self.rampStaticBody2D.removeChild(child)
-#       child.queueFree()
-
 proc createCollisionPolygons(self: Ramp) =
   if self.line_points.size < 2: return
-
-  # self.clearOldWallSegments()
 
   let baseWidth = self.line2D.width / 2
   let curve: GdRef[Curve] = self.line2D.widthCurve
